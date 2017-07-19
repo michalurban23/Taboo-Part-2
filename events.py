@@ -47,11 +47,11 @@ class Checkpoint(Event):
 
 class PrivateMentoring(Event):
 
-    def __init__(self, date, creator="None", preffered_mentor="None", goal="None"):
+    def __init__(self, date, creator="None", goal="None", preffered_mentor="None"):
 
         super().__init__(date, creator)
-        self.preffered_mentor = preffered_mentor
         self.goal = goal
+        self.preffered_mentor = preffered_mentor
         self.add_event(self)
 
     def __str__(self):

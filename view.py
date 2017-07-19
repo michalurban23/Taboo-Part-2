@@ -6,6 +6,16 @@ def clear():
     system("clear")
 
 
+def pause():
+
+    input("\nPress enter to continue\n")
+
+
+def print_error(err_msg):
+
+    print("\033[1;31m" + "\n{}\n".format(err_msg) + "\033[0;0m")
+
+
 def print_all_events(events):
 
     for event in events:
@@ -14,10 +24,14 @@ def print_all_events(events):
 
 def print_main_menu():
 
-    print("\nChoose option: ")
+    clear()
+    print("* * Event Manager * *\n")
     print("1 - Book private mentoring")
     print("2 - Book checkpoint")
-    print("3 - Show all my events\n")
+    print("3 - Show all my events")
+    print("4 - Cancel event")
+    print("5 - Reschedule event")
+    print("\n6 - Mentor Panel\n")
 
 
 def print_goodbye():

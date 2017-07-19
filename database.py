@@ -35,10 +35,10 @@ def load_events_from_file(filename):
 
     with open(filename, "r") as f:
         for line in f:
-            data = line.split(",")
+            data = line.rstrip("\n").split(",")
             if line.startswith("CP"):
                 Checkpoint(convert_date_from_string(data[1]), data[2])
-            else:
+            elif line.startswith("PM"):
                 PrivateMentoring(convert_date_from_string(data[1]), data[2], data[3], data[4])
 
 

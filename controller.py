@@ -1,6 +1,7 @@
 from datetime import date
 from events import Event, Checkpoint, PrivateMentoring
 from database import save_events_to_file, load_events_from_file
+from foolproof import is_number, is_data, is_in_range
 import view
 
 
@@ -9,31 +10,44 @@ class Controller:
     def start(self):
 
         while True:
+
             view.print_main_menu()
-            choice = view.get_choice()
+            try:
+                choice = view.get_choice()
+                is_in_range(choice, [str(i) for i in range(7)])
 
-            if choice == "1":
-                self.book_private_mentoring()
-
-            elif choice == "2":
-                self.book_checkpoint()
-
-            elif choice == "3":
-                self.display_all_events()
-
-            elif choice == "4":
-                self.cancel_event()
-
-            elif choice == "5":
-                self.reschedule_event()
-
-            elif choice == "69":
-                self.start_mentor_panel()
+            except ValueError as err_msg:
+                view.print_error(err_msg)
 
             else:
-                self.say_goodbye()
-                save_events_to_file("data/events.csv")
-                exit()
+                self.handle_menu(choice)
+
+            view.pause()
+
+    def handle_menu(self, choice):
+
+        if choice == "1":
+            self.book_private_mentoring()
+
+        elif choice == "2":
+            self.book_checkpoint()
+
+        elif choice == "3":
+            self.display_all_events()
+
+        elif choice == "4":
+            self.cancel_event()
+
+        elif choice == "5":
+            self.reschedule_event()
+
+        elif choice == "6":
+            self.start_mentor_panel()
+
+        elif choice == "0":
+            self.say_goodbye()
+            save_events_to_file("data/events.csv")
+            exit()
 
     def display_all_events(self):
 
