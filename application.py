@@ -1,6 +1,4 @@
-from controller import *
-from events import *
-from view import *
+from controller import Controller
 
 
 def main():
