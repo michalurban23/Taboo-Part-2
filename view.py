@@ -1,3 +1,11 @@
+from os import system
+
+
+def clear():
+
+    system("clear")
+
+
 def print_all_events(events):
 
     for event in events:
@@ -6,37 +14,36 @@ def print_all_events(events):
 
 def print_main_menu():
 
-    print("Choose option: ")
+    print("\nChoose option: ")
     print("1 - Book private mentoring")
     print("2 - Book checkpoint")
-    print("3 - Show all my events")
+    print("3 - Show all my events\n")
 
 
 def print_goodbye():
 
-    print("Bye bye")
+    print("\nBye bye\n")
 
 
 def get_choice():
 
-    return input("Choose option: ")
-
-
-def get_checkpoint_details():
-
-    return self.get_event_date()
+    user_choice = input("Choose option: ")
+    return user_choice
 
 
 def get_event_date():
 
-    return input("Enter date dd-mm-yyyy: ")
+    date = input("\nEnter date dd-mm-yyyy: ")
+    return date
 
 
 def get_preffered_mentor(self):
 
-    return input("Enter preffered mentor: ")
+    mentor = input("\nEnter preffered mentor: ")
+    return mentor
 
 
 def get_goal(self):
 
-    return input("Enter your goal: ")
+    goal = input("Enter your goal: ")
+    return goal
