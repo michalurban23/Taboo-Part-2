@@ -1,7 +1,7 @@
 from datetime import date
 from events import Event, Checkpoint, PrivateMentoring
 from database import save_events_to_file, load_events_from_file
-from foolproof import is_number, is_data, is_in_range
+from foolproof import is_number, is_date, is_in_range
 import view
 
 
@@ -59,15 +59,25 @@ class Controller:
 
     def book_checkpoint(self):
 
-        date = view.get_event_date()
-        date = self.convert_date(date)
-        Checkpoint(date)
+        date = self.get_correct_date()
+
+        if date:
+            Checkpoint(self.convert_date(date))
+            view.print_message("Event created!")
+
+        else:
+            view.print_error("Could not create an event")
 
     def book_private_mentoring(self):
 
-        date = view.get_event_date()
-        date = self.convert_date(date)
-        PrivateMentoring(date)
+        date = self.get_correct_date()
+
+        if date:
+            PrivateMentoring(self.convert_date(date))
+            view.print_message("Event created!")
+
+        else:
+            view.print_error("Could not create an event")
 
     def cancel_event(self):
         pass
@@ -92,3 +102,17 @@ class Controller:
     def fill_with_data(filename):
 
         load_events_from_file(filename)
+
+    @staticmethod
+    def get_correct_date():
+
+        date = view.get_event_date()
+
+        try:
+            is_date(date)
+
+        except IndexError as err_msg:
+            view.print_error(err_msg)
+
+        else:
+            return date

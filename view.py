@@ -16,10 +16,17 @@ def print_error(err_msg):
     print("\033[1;31m" + "\n{}\n".format(err_msg) + "\033[0;0m")
 
 
+def print_message(message):
+
+    print("\033[1;33m" + "\n{}\n".format(message) + "\033[0;0m")
+
+
 def print_all_events(events):
 
+    print("")
     for event in events:
         print(event)
+    print("")
 
 
 def print_main_menu():
@@ -41,7 +48,7 @@ def print_goodbye():
 
 def get_choice():
 
-    user_choice = input("Choose option: ")
+    user_choice = input("\nChoose option: ")
     return user_choice
 
 
@@ -59,5 +66,5 @@ def get_preffered_mentor(self):
 
 def get_goal(self):
 
-    goal = input("Enter your goal: ")
+    goal = input("\nEnter your goal: ")
     return goal
