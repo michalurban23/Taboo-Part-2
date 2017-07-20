@@ -49,11 +49,9 @@ class Controller:
             save_events_to_file("data/events.csv")
             exit()
 
-    def display_all_events(self, name=""):
+    def display_all_events(self, name="student"):
 
-        if name:
-            name = ""
-        else:
+        if name == "student":
             name = view.get_name()
         view.print_list(Event.get_events(name))
         return Event.get_events(name)
@@ -141,7 +139,7 @@ class Controller:
     def cancel_event_as_mentor(self):
 
         view.print_title("Event cancelation")
-        events = self.display_all_events("mentor")
+        events = self.display_all_events("")
 
         if events:
             try:
