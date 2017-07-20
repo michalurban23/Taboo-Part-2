@@ -49,20 +49,22 @@ class Controller:
             save_events_to_file("data/events.csv")
             exit()
 
-    def display_all_events(self):
+    def display_all_events(self, name=""):
 
-        view.print_all_events(Event.get_events())
-
-    def book_event(self):
-
-        pass
+        if name:
+            name = ""
+        else:
+            name = view.get_name()
+        view.print_list(Event.get_events(name))
+        return Event.get_events(name)
 
     def book_checkpoint(self):
 
         date = self.get_correct_date()
 
         if date:
-            Checkpoint(self.convert_date(date))
+            name = view.get_name()
+            Checkpoint(self.convert_date(date), name)
             view.print_message("Event created!")
 
         else:
@@ -73,20 +75,86 @@ class Controller:
         date = self.get_correct_date()
 
         if date:
-            PrivateMentoring(self.convert_date(date))
+            name = view.get_name()
+            new_event = PrivateMentoring(self.convert_date(date), name)
             view.print_message("Event created!")
+
+            goal = view.get_goal(self)
+            new_event.set_goal(goal)
+
+            mentor = view.get_mentor(new_event.get_mentors())
+            new_event.set_preffered_mentor(mentor)
 
         else:
             view.print_error("Could not create an event")
 
     def cancel_event(self):
-        pass
+
+        view.print_title("Event cancelation")
+        events = self.display_all_events()
+
+        if events:
+            try:
+                index = view.get_choice()
+                is_number(index)
+                is_in_range(int(index), range(1, len(events)+1))
+
+            except ValueError as err_msg:
+                view.print_error(err_msg)
+
+            else:
+                event = events[int(index)-1]
+                event.cancel_event(event)
 
     def reschedule_event(self):
-        pass
+
+        view.print_title("Event reschedule")
+        events = self.display_all_events()
+
+        if events:
+            try:
+                index = view.get_choice()
+                is_number(index)
+                is_in_range(int(index), range(1, len(events)+1))
+
+            except ValueError as err_msg:
+                view.print_error(err_msg)
+
+            else:
+                date = self.get_correct_date()
+                if date:
+                    event = events[int(index)-1]
+                    event.reschedule_event(self.convert_date(date))
+                else:
+                    view.print_error("Could not reschedule event")
 
     def start_mentor_panel(self):
-        pass
+
+        password = view.get_password()
+
+        if password == "coffee":
+            self.cancel_event_as_mentor()
+
+        else:
+            view.print_error("Nice try LOL")
+
+    def cancel_event_as_mentor(self):
+
+        view.print_title("Event cancelation")
+        events = self.display_all_events("mentor")
+
+        if events:
+            try:
+                index = view.get_choice()
+                is_number(index)
+                is_in_range(int(index), range(1, len(events)+1))
+
+            except ValueError as err_msg:
+                view.print_error(err_msg)
+
+            else:
+                event = events[int(index)-1]
+                event.cancel_event(event)
 
     def say_goodbye(self):
 

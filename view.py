@@ -21,12 +21,20 @@ def print_message(message):
     print("\033[1;33m" + "\n{}\n".format(message) + "\033[0;0m")
 
 
-def print_all_events(events):
+def print_list(events):
 
-    print("")
-    for event in events:
-        print(event)
-    print("")
+    if events:
+        print()
+        for index, event in enumerate(events):
+            print("\t{}) {}".format(index+1, event))
+    else:
+        print("\nNothing to show :(")
+
+
+def print_title(message):
+
+    clear()
+    print("* * {} * *".format(message))
 
 
 def print_main_menu():
@@ -38,17 +46,46 @@ def print_main_menu():
     print("3 - Show all my events")
     print("4 - Cancel event")
     print("5 - Reschedule event")
-    print("\n6 - Mentor Panel\n")
+    print("\n6 - Mentor Panel")
+    print("\n0 - Exit\n")
 
 
 def print_goodbye():
 
-    print("\nBye bye\n")
+    clear()
+    print("Bye bye\n")
 
 
 def get_choice():
 
     user_choice = input("\nChoose option: ")
+    return user_choice
+
+
+def get_name():
+
+    user_choice = input("\nEnter your fullname: ")
+    return user_choice
+
+
+def get_goal():
+
+    user_choice = input("\nWhat's the goal of the mentoring? ")
+    return user_choice
+
+
+def get_password():
+
+    clear()
+    user_choice = input("What's the super secret mentor password?\nHINT: it's coffee ")
+    return user_choice
+
+
+def get_mentor(mentors):
+
+    print("\nAvailable Mentors:")
+    print_list(mentors)
+    user_choice = input("\nWho is your preffered mentor for this event? ")
     return user_choice
 
 
